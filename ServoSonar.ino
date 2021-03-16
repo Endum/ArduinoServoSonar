@@ -22,21 +22,35 @@ void setup(){
   delay(3000);
 }
 
+bool go = 0;
+
 void loop(){
-  // Get current distance and angle.
-  float curDist = sonar->getDistance();
-  int curAngle = servo->getAngle();
+  while(Serial.available()){
+    Serial.read();
+    go = 1;
+  }
 
-  // Send info via serial.
-  Serial.print(curDist);
-  Serial.write(", ");
-  Serial.print(curAngle);
-  Serial.write("\n");
+  if(go){
+    // Get current distance and angle.
+    float curDist = sonar->getDistance();
+    int curAngle = servo->getAngle();
+  
+    // Send info via serial.
+    Serial.write("[");
+    Serial.print(curDist);
+    Serial.write(", ");
+    Serial.print(curAngle);
+    Serial.write("],\n");
+  
+    // Update servo.
+    bool over = servo->nextStep();
 
-  // Update servo.
-  bool over = servo->nextStep();
-
-  if(over){
-    Serial.write("Cycle over\n");
+    // Wait for servo to stop.
+    delay(50);
+  
+    if(over){
+      Serial.write("Cycle over\n");
+      go = 0;
+    }
   }
 }
