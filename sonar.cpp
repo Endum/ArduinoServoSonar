@@ -18,7 +18,7 @@ float Sonar::getDistance(){
      delayMicroseconds(10);
      digitalWrite(trig,LOW);
      // Echo received.
-     float tUS = pulseIn(echo, HIGH);
+     float tUS = pulseIn(echo, HIGH, TIMEOUT);
      float t = tUS / 1000.0 / 1000.0 / 2;
      float d = t*vs;
      sum += d * 100; // Aggregate value in cm.

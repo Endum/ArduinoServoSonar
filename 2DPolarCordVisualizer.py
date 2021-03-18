@@ -46,6 +46,9 @@ im = np.zeros((np.amax(coords[:,0]) + 1,
                np.amax(coords[:,1]) + 1))
 im[coords[:,0], coords[:,1]] = 255
 
+# Coloring sonar.
+im[-minX-5:-minX+5, :5] = 31
+
 # Rotating (don't judge me).
 im = cv.rotate(im, cv.ROTATE_90_CLOCKWISE)
 im = cv.rotate(im, cv.ROTATE_90_CLOCKWISE)
