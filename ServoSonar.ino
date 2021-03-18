@@ -36,17 +36,17 @@ void loop(){
     int curAngle = servo->getAngle();
   
     // Send info via serial.
-    Serial.write("[");
+    //Serial.write("[");
     Serial.print(curDist);
-    Serial.write(", ");
+    Serial.write(",");
     Serial.print(curAngle);
-    Serial.write("],\n");
+    Serial.write("\n");
   
     // Update servo.
     bool over = servo->nextStep();
 
     // Wait for servo to stop.
-    delay(50);
+    delay(100);
   
     if(over){
       Serial.write("Cycle over\n");
