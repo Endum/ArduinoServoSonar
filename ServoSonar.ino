@@ -5,6 +5,8 @@
 #define SERVO 3
 #define ECHO 11
 #define TRIG 10
+#define MEASURES 100
+#define WAIT_FOR_SERVO 200
 
 ServoS* servo;
 Sonar* sonar;
@@ -15,7 +17,7 @@ void setup(){
   servo = new ServoS(SERVO);
   servo->initDevice();
 
-  sonar = new Sonar(ECHO, TRIG);
+  sonar = new Sonar(ECHO, TRIG, MEASURES);
   sonar->initDevice();
 
   // Wait for servo to reset.
@@ -46,7 +48,7 @@ void loop(){
     bool over = servo->nextStep();
 
     // Wait for servo to stop.
-    delay(100);
+    delay(WAIT_FOR_SERVO);
   
     if(over){
       Serial.write("Cycle over\n");
